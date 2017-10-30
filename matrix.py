@@ -72,7 +72,14 @@ class Matrix(object):
         if self.w == 1:
             return Matrix(1/self.g[0][0])
         if self.w == 2:
-            return (1/self.determinant())*(self.trace()*identity(self.w)-self)
+            # equation from matrix_cheat_sheet.ipynb
+            invMat = zeroes(self.w, self.h)
+            invMat[0][0] = self.g[1][1] * (1/self.determinant())
+            invMat[0][1] = -self.g[0][1] * (1/self.determinant())
+            invMat[1][0] = -self.g[1][0] * (1/self.determinant())
+            invMat[1][1] = self.g[0][0] * (1/self.determinant())
+            
+            return invMat
 
     def T(self):
         """
